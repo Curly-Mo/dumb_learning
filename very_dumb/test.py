@@ -12,7 +12,9 @@ num_features = len(X_train[0])
 num_labels = 10
 
 nn = dumb_net.NN([num_features, 20, num_labels])
+print(f'Training...')
 nn.fit(X_train, Y_train)
 
+print(f'Evaluating...')
 accuracy = nn.evaluate(X_test, Y_test)
 print(f'Accuracy: {accuracy}')

@@ -60,7 +60,7 @@ class Neuron(object):
 
     def backprop(self, y=None, learning_rate=None):
         if self.type == 'output':
-            self._delta = sigmoid_prime(self.z_value) * self.cost_prime(y)
+            self._delta = learning_rate * sigmoid_prime(self.z_value) * self.cost_prime(y)
         if self.type == 'hidden':
             self._delta = math.fsum(c.weight * c.output._delta for c in self.outputs) * sigmoid_prime(self.z_value)
             self.bias += self._delta
@@ -127,7 +127,7 @@ class Layer(object):
 
 
 class NN(object):
-    def __init__(self, shape, learning_rate=0.3):
+    def __init__(self, shape, learning_rate=1.0):
         self.input_layer = Layer(shape[0], 'input')
         self.output_layer = Layer(shape[-1], 'output')
         hidden_layers = [Layer(size, 'hidden') for size in shape[1:-1]]
